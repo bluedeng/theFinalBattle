@@ -56,7 +56,7 @@ priority_queue<queue_entry> m_queue;
 map<unsigned, unsigned> candidate;
 unsigned candidate_average;
 map<unsigned, unsigned> max_ed;
-unsigned max_ed_average;
+double max_ed_average;
 vector<double> time_all;
 double time_all_average;
 
@@ -260,17 +260,16 @@ int main(int argc, char* argv[]) {
 		//statics
 		map<unsigned, unsigned>::iterator iter;
 		unsigned temp1 = 0;
-		double temp2 = 0;
+		double temp2 = 0.0;
 		unsigned len = queryset.size();
 
-		for (iter = max_ed.begin(); iter != max_ed.end(); iter++)
-			temp1 += iter->first * iter->second;
-		max_ed_average = temp1 / len;
-
-		temp1 = 0;
 		for (iter = candidate.begin(); iter != candidate.end(); iter++)
 			temp1 += iter->first * iter->second;
 		candidate_average = temp1 / len;
+
+		for (iter = max_ed.begin(); iter != max_ed.end(); iter++)
+			temp1 += iter->first * iter->second;
+		max_ed_average = (double)temp1 / len;
 
 		for (unsigned i = 0; i < time_all.size(); i++)
 			temp2 += time_all[i];
