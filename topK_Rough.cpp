@@ -67,6 +67,7 @@ void usage() {
 	cout << "Usage: simple_index [OPTION] ${INPUTDB} ${QUERY}" << endl;
 //	cout << "-k val     set the value for top-k heap         " << endl;
 	cout << "-o         output the result set of sequence ids" << endl;
+//	cout << "      we will process the topK for 5 only       " << endl;
 	cout << " we will process the topK for 1, 5, 10, 25, 50  " << endl;
 	cout << "------------------------------------------------" << endl;
 	cout << "************************************************" << endl;
@@ -196,15 +197,16 @@ int main(int argc, char* argv[]) {
 	}
 
 	//build the edcost matrix, prepare for the calculation
-	edcost = new int *[gl_maxLen];
-	for (unsigned i = 0; i < gl_maxLen; i++)
-		edcost[i] = new int[gl_maxLen];
+	edcost = new int *[gl_maxLen + 1];
+	for (unsigned i = 0; i < gl_maxLen + 1; i++)
+		edcost[i] = new int[gl_maxLen + 1];
 
 	string stemp = argv[argc - 1];
 	ofstream fout((stemp + "_Rough").c_str());
 	fout << "K,  Average_max_ed, Average_candidate_number,  Average_time" << endl;
 
 	//push values into topk array
+//	tk.push_back(5);
 	tk.push_back(1); tk.push_back(5); tk.push_back(10); tk.push_back(25); tk.push_back(50);
 	for (unsigned j = 0; j < tk.size(); j++) {
 		topk = tk[j];
@@ -267,6 +269,7 @@ int main(int argc, char* argv[]) {
 			temp1 += iter->first * iter->second;
 		candidate_average = temp1 / len;
 
+		temp1 = 0;
 		for (iter = max_ed.begin(); iter != max_ed.end(); iter++)
 			temp1 += iter->first * iter->second;
 		max_ed_average = (double)temp1 / len;
