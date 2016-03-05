@@ -142,15 +142,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Approximate_SeqDB.h" />
+    <ClInclude Include="CountFilter.h" />
+    <ClInclude Include="Gram.h" />
+    <ClInclude Include="GramList.h" />
+    <ClInclude Include="Query.h" />
+    <ClInclude Include="SeqDB.h" />
     <ClInclude Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Approximate_SeqDB.cpp" />
+    <ClCompile Include="Approximate_topkSearch.cpp" />
+    <ClCompile Include="CountFilter.cpp" />
+    <ClCompile Include="Gram.cpp" />
+    <ClCompile Include="GramList.cpp" />
+    <ClCompile Include="Query.cpp" />
+    <ClCompile Include="SeqDB.cpp" />
     <ClCompile Include="Time.cpp" />
-    <ClCompile Include="topK_Rough.cpp" />
+    <ClCompile Include="topkSearch.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Makefile" />
     <None Include="README.md" />
-    <None Include="Rough_Makefile" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

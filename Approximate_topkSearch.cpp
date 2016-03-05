@@ -7,7 +7,7 @@
 #include "Time.h"
 #include "Gram.h"
 #include "CountFilter.h"
-#include "SeqDB.h"
+#include "Approximate_SeqDB.h"
 #include "Query.h"
 
 #include <iostream>
@@ -131,7 +131,9 @@ void read(const char *fileName, vector<string> &data)
 static CSeqDB<> *pThis;
 volatile int threadnum = 0;
 pthread_mutex_t running_mutex = PTHREAD_MUTEX_INITIALIZER;
-#define PTHEAD_NUM 2
+//change PTHEAD_NUM here for testing a good value
+//#define PTHEAD_NUM 2
+#define PTHEAD_NUM 3
 
 // The fuction of the thread
 void *thr_fn_knn(void *arg)
@@ -235,7 +237,7 @@ int main(int argc, const char* argv[])
 	}
 
 	string stemp = argv[argc - 1];
-	ofstream fout((stemp + "_topk").c_str());
+	ofstream fout((stemp + "_approxi").c_str());
 	fout << "K,  Average_max_ed, Average_candidate_number, Average_indextime, Average_querytime, Average_time" << endl;
 
     //in case of we build the index and use it in the same program
@@ -270,7 +272,7 @@ int main(int argc, const char* argv[])
 	for (int j = 0; j < tk.size(); j++) {
 		gl_topk = tk[j];
 
-		ofstream fdetail((stemp + "_topk_" + changeI2S(gl_topk)).c_str());
+		ofstream fdetail((stemp + "_approxi_" + changeI2S(gl_topk)).c_str());
 
 		query_time = 0.0;
 		all_time = 0.0;

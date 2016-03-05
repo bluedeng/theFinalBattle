@@ -8,13 +8,14 @@
 #define _GREMLIST_H_
 
 #include <vector>
+#include <utility>
 
 using namespace std;
 
-template <typename InvList = vector<unsigned> >
+template <typename InvList = vector< pair<unsigned, int> > >
 class CGramList {
  protected:
-  vector<unsigned> invertedList;
+  vector< pair<unsigned, int> > invertedList;
   
  public:
   CGramList() {};
@@ -24,6 +25,8 @@ class CGramList {
   void clear() { }
 };
 
+//not used
+/*
 template<class InvList = vector<unsigned> >
 class QueryGramList {
 public:
@@ -33,5 +36,6 @@ public:
   QueryGramList(unsigned gramCode, CGramList<InvList>* gl)
     : gramCode(gramCode), gl(gl) {}
 };
+*/
 
 #endif
