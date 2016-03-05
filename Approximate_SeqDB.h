@@ -484,7 +484,7 @@ void CSeqDB<InvList>::merge(vector<InvList*>& invLists, const unsigned threshold
     //size: smaller ~ bigger
 	sort(invLists.begin(), invLists.end(), CSeqDB<InvList>::cmpInvList);
 
-	unsigned numShortLists = invLists.size() - threshold + 1;
+	unsigned numShortLists = threshold > 0 ? (invLists.size() - threshold + 1) : invLists.size();
 
 	// process the short lists using the algorithm from
 	// Naoaki Okazaki, Jun'ichi Tsujii
@@ -697,8 +697,8 @@ void CSeqDB<InvList>::knn_postprocess() {
 				}
 				// Check the bounds on approximate ngrams
 				checked = true;
-				appgram_count = 0;
-				for (i = 0; i < this->gram_maxed; i++) {
+				appgram_count = this->dataCount[0][idlow];
+				for (i = 1; i < this->gram_maxed; i++) {
 					appgram_count += this->dataCount[i][idlow];
 					if (appgram_count < this->filter->tabUpQuery[this->theQuery->threshold][i]) {
 						checked = false;
@@ -739,9 +739,9 @@ void CSeqDB<InvList>::knn_postprocess() {
 				}
 				// Check the bounds on approximate ngrams
 				checked = true;
-				appgram_count = 0;
+				appgram_count = this->dataCount[0][idlow];
 				const int& tmp_datasize = this->data->at(idlow).size();
-				for (i = 0; i < this->gram_maxed; i++) {
+				for (i = 1; i < this->gram_maxed; i++) {
 					appgram_count += this->dataCount[i][idlow];
 					if ((appgram_count + this->filter->tabUp[this->theQuery->threshold][i]) < tmp_datasize) {
 						checked = false;

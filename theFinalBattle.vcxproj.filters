@@ -18,12 +18,51 @@
     <ClInclude Include="Time.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CountFilter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Gram.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GramList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Query.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SeqDB.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Approximate_SeqDB.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Time.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="topK_Rough.cpp">
+    <ClCompile Include="CountFilter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Gram.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GramList.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Query.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SeqDB.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="topkSearch.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Approximate_SeqDB.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Approximate_topkSearch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -31,7 +70,7 @@
     <None Include="README.md">
       <Filter>资源文件</Filter>
     </None>
-    <None Include="Rough_Makefile">
+    <None Include="Makefile">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>

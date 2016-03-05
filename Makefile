@@ -2,22 +2,34 @@
 CC=g++ -Wno-deprecated -DNDEBUG -O3
 CFLAGS=-c
 
-OFILES=time.o gram.o list.o filtb.o query.o db.o
+OFILES1 = time.o gram.o list.o filtb.o query.o db.o
+OFILES2 = time.o gram.o list.o filtb.o query.o appro_db.o
 
-all:psearch
+all:topksearch approximateTopksearch roughsearch
 
 rebuild:clean all
 	
 clean:
 	rm -f *.o
 
-psearch:${OFILES} topksearch.o
-	${CC} -o $@ ${OFILES} psearch.o -lpthread
+topksearch:${OFILES1} topksearch.o
+	${CC} -o $@ ${OFILES1} topksearch.o -lpthread
+
+approximateTopksearch:${OFILES2} appro_topksearch.o
+	${CC} -o $@ ${OFILES2} appro_topksearch.o -lpthread
+
+roughsearch:time.o rough.o
+	${CC} -o $@ time.o rough.o
 
 # ------------------------------------------
 topksearch.o:topkSearch.cpp
 	${CC} ${CFLAGS} $< -o $@ ${INCLUDE}
+
+appro_topksearch.o:Approximate_topkSearch.cpp
+	${CC} ${CFLAGS} $< -o $@ ${INCLUDE}
 	
+rough.o:topK_Rough.cpp
+	${CC} ${CFLAGS} $< -o $@ ${INCLUDE}
 
 # COMMON OBJECT FILES
 
@@ -37,4 +49,7 @@ query.o:Query.cpp Query.h
 	${CC} ${CFLAGS} $< -o $@ ${INCLUDE}
 
 db.o:SeqDB.cpp SeqDB.h
+	${CC} ${CFLAGS} $< -o $@ ${INCLUDE}
+
+appro_db.o:Approximate_SeqDB.cpp Approximate_SeqDB.h
 	${CC} ${CFLAGS} $< -o $@ ${INCLUDE}

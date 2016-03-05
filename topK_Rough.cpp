@@ -68,7 +68,7 @@ void usage() {
 //	cout << "-k val     set the value for top-k heap         " << endl;
 	cout << "-o         output the result set of sequence ids" << endl;
 //	cout << "      we will process the topK for 5 only       " << endl;
-	cout << " we will process the topK for 1, 5, 10, 25, 50  " << endl;
+	cout << " we will process the topK for 5, 10, 20, 30, 40 " << endl;
 	cout << "------------------------------------------------" << endl;
 	cout << "************************************************" << endl;
 }
@@ -207,7 +207,7 @@ int main(int argc, char* argv[]) {
 
 	//push values into topk array
 //	tk.push_back(5);
-	tk.push_back(1); tk.push_back(5); tk.push_back(10); tk.push_back(25); tk.push_back(50);
+	tk.push_back(5); tk.push_back(10); tk.push_back(20); tk.push_back(30); tk.push_back(40);
 	for (unsigned j = 0; j < tk.size(); j++) {
 		topk = tk[j];
 		int ed = 0;
