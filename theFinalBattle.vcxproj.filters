@@ -30,10 +30,10 @@
     <ClInclude Include="Query.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="SeqDB.h">
+    <ClInclude Include="joinSeqDB.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Approximate_SeqDB.h">
+    <ClInclude Include="Approxijoin_SeqDB.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,16 +53,16 @@
     <ClCompile Include="Query.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="SeqDB.cpp">
+    <ClCompile Include="joinSearch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="topkSearch.cpp">
+    <ClCompile Include="joinSeqDB.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Approximate_SeqDB.cpp">
+    <ClCompile Include="Approxijoin_SeqDB.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Approximate_topkSearch.cpp">
+    <ClCompile Include="Approxijoin_Search.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

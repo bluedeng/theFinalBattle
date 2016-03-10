@@ -24,3 +24,12 @@ build for the Final Battle
 2016-03-05:
 	Intergrate the Makefile.
 	Delete the Makefile only for topK_Rough, change the EXE's name of topK_Rough to roughsearch
+	
+2016-03-10:
+	Update the stable version of:
+						joinSeqDB.h/.cpp
+						joinSearch.cpp
+						Approxijoin_Search.h/.cpp
+						Approxijoin_Search.cpp
+	and the modified version of:
+						Makefile
