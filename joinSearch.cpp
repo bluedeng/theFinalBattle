@@ -326,7 +326,7 @@ int main(int argc, const char* argv[])
 			cout << "processing the " << i << "th" << endl;
 			db_load.reset();//reset the db_load
 
-			CQuery query(queryset[i].c_str(), db_load.gramGenUpper, (unsigned)40);
+			CQuery query(queryset[i].c_str(), db_load.gramGenUpper, dataset.size());
 			class TSINGHUA_CLIPSE_UTIL::TimeRecorder _time;
 			/*
 			class TSINGHUA_CLIPSE_UTIL::TimeRecorder _time2;
