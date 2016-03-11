@@ -267,7 +267,7 @@ int main(int argc, const char* argv[])
 	ed = atoi(argv[argc - 1]);
 	string stemp = argv[1];
 	ofstream fout((stemp + "_approxijoin").c_str());
-	fout << "Average_candidate_number, All_indextime, All_querytime, All_time" << endl;
+	fout << "Average_candidate_number, Average_indextime, Average_querytime, Average_time" << endl;
 
     //in case of we build the index and use it in the same program
     CGram gramgenupper(gl_qmax, false);
@@ -318,7 +318,7 @@ int main(int argc, const char* argv[])
 			cout << "processing the " << i << "th" << endl;
 			db_load.reset();//reset the db_load
 
-			CQuery query(queryset[i].c_str(), db_load.gramGenUpper, dataset.size());
+			CQuery query(queryset[i].c_str(), db_load.gramGenUpper, 40);
 			class TSINGHUA_CLIPSE_UTIL::TimeRecorder _time;
 			/*
 			class TSINGHUA_CLIPSE_UTIL::TimeRecorder _time2;
@@ -355,7 +355,7 @@ int main(int argc, const char* argv[])
 		fdetail.close();
 
 		//output
-		fout << processednum / queryset.size() << "  " << index_time << "  " << query_time << "  " << all_time << endl;
+		fout << processednum / queryset.size() << "  " << index_time << "  " << query_time / queryset.size() << "  " << all_time / queryset.size() << endl;
 
 		cout << "Finish the string approximate join with ed: " << ed << endl;
 //	}

@@ -601,7 +601,7 @@ void CSeqDB<InvList>::init_threshold(CQuery& query) {
 	this->getIDBounds((int)query.length, 0, idlow, idhigh);
 	idhigh = idhigh >(idlow + (int)query.constraint) ? idhigh : ((idlow + (int)query.constraint) < (int)this->data->size() ? (idlow + (int)query.constraint) : (int)this->data->size());
 	idlow = idlow < (idhigh - (int)query.constraint) ? idlow : ((idhigh - (int)query.constraint)>0 ? (idhigh - (int)query.constraint) : 0);
-	for (; idlow <= idhigh; idlow++) {
+	for (; idlow<idhigh; idlow++) {
 		if (this->m_queue.size() < query.constraint) {
 			ed = this->getRealEditDistance_nsd(this->data->at(idlow), query.sequence);
 			this->processedData[idlow] = true;
@@ -642,7 +642,7 @@ void CSeqDB<InvList>::old_version_knn_postprocess() {
 	idlow = idhigh = -1;
 	this->getIDBounds((int)this->theQuery->length, (int)this->theQuery->threshold, idlow, idhigh);
 
-	if (idlow <= idhigh) {
+	if (idlow < idhigh) {
 		for (int dataCode = idlow; dataCode <= idhigh; dataCode++) {
 			if (this->processedData[dataCode])
 				continue;
@@ -688,11 +688,11 @@ void CSeqDB<InvList>::knn_postprocess() {
 
 	//self join, add this part to skip the string processed before, avoid dumplicate
 	idlow = this->datasize_groupindex[this->theQuery->length - 1];
-	while (idlow <= idhigh && this->data->at(idlow) != this->theQuery->sequence)
+	while (idlow < idhigh && this->data->at(idlow) != this->theQuery->sequence)
 		idlow++;
 
 	const int& querylen_index = this->datasize_groupindex[this->theQuery->length];
-	if (idlow <= idhigh) {
+	if (idlow<idhigh) {
 		// For those sizes no larger than query
 		for (; idlow <= querylen_index; idlow++) {
 			if (!this->processedData[idlow]) {
@@ -742,7 +742,7 @@ void CSeqDB<InvList>::knn_postprocess() {
 			}
 		}
 		// For those sizes larger than query
-		for (; idlow <= idhigh; idlow++) {
+		for (; idlow<idhigh; idlow++) {
 			if (!this->processedData[idlow]) {
 				if (this->dataCount[0][idlow] == 0) {
 					// Even do not have a similar gram
@@ -787,10 +787,10 @@ void CSeqDB<InvList>::knn_postprocess() {
 			}
 		}
 		// Check approximate ngrams
-		//this->getIDBounds((int)this->theQuery->length, (int)this->theQuery->threshold, idlow, idhigh);
+		this->getIDBounds((int)this->theQuery->length, (int)this->theQuery->threshold, idlow, idhigh);
 		for (j = 0; j < this->post_cand_low.size(); j++) {
 			const int& dataid = this->post_cand_low[j];
-			if (dataid >= idlow && dataid <= idhigh) {
+			if (dataid >= idlow && dataid < idhigh) {
 				checked = true;
 				appgram_count = 0;
 				for (i = 1; i < this->gram_maxed; i++) {
@@ -824,7 +824,7 @@ void CSeqDB<InvList>::knn_postprocess() {
 		}
 		for (j = 0; j < this->post_cand_up.size(); j++) {
 			const int& dataid = this->post_cand_up[i];
-			if (dataid >= idlow && dataid <= idhigh) {
+			if (dataid >= idlow && dataid < idhigh) {
 				checked = true;
 				appgram_count = 0;
 				const int& tmp_datasize = (int)this->data->at(dataid).size();

@@ -143,29 +143,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Approxijoin_SeqDB.h" />
-    <ClInclude Include="Approximate_SeqDB.h" />
     <ClInclude Include="CountFilter.h" />
     <ClInclude Include="Gram.h" />
     <ClInclude Include="GramList.h" />
     <ClInclude Include="joinSeqDB.h" />
     <ClInclude Include="Query.h" />
-    <ClInclude Include="SeqDB.h" />
     <ClInclude Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Approxijoin_SeqDB.cpp" />
     <ClCompile Include="Approxijoin_Search.cpp" />
-    <ClCompile Include="Approximate_SeqDB.cpp" />
-    <ClCompile Include="Approximate_topkSearch.cpp" />
     <ClCompile Include="CountFilter.cpp" />
     <ClCompile Include="Gram.cpp" />
     <ClCompile Include="GramList.cpp" />
     <ClCompile Include="joinSearch.cpp" />
     <ClCompile Include="joinSeqDB.cpp" />
     <ClCompile Include="Query.cpp" />
-    <ClCompile Include="SeqDB.cpp" />
     <ClCompile Include="Time.cpp" />
-    <ClCompile Include="topkSearch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile" />
