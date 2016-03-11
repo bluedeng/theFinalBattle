@@ -36,6 +36,12 @@
     <ClInclude Include="Approxijoin_SeqDB.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Approximate_SeqDB.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SeqDB.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Time.cpp">
@@ -63,6 +69,21 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Approxijoin_Search.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Approximate_SeqDB.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Approximate_topkSearch.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SeqDB.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="topK_Rough.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="topkSearch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
