@@ -37,6 +37,8 @@ unsigned gl_maxLen = 0;
 double index_time = 0.0;
 double query_time = 0.0;
 double all_time = 0.0;
+vector<double> query_average;
+vector<double> all_average;
 double max_ed = 0.0;
 long processednum = 0;
 
@@ -269,61 +271,81 @@ int main(int argc, const char* argv[])
 	int a[] = { 5, 10, 20, 30, 40 };
 	vector<int> tk(a, a + 5);
 
-	for (int j = 0; j < tk.size(); j++) {
-		gl_topk = tk[j];
+	for (unsigned loop = 0; loop < 5; loop++) {
 
-		ofstream fdetail((stemp + "_approxi_" + changeI2S(gl_topk)).c_str());
+		for (int j = 0; j < tk.size(); j++) {
+			gl_topk = tk[j];
 
-		query_time = 0.0;
-		all_time = 0.0;
-		max_ed = 0.0;
-		processednum = 0;
+			ofstream fdetail((stemp + "_approxi_" + changeI2S(gl_topk)).c_str());
 
-		for (unsigned i = 0; i < queryset.size(); i++) {//get each query
-			if (queryset[i].size() < db_load.gramGenUpper_len) {
-				fprintf(stdout, "We support queries with length larger than %d\n", db_load.gramGenUpper_len);
-				fprintf(stdout, "Too small query size for [%s]\n", queryset[i].c_str());
-				continue;
-			}
-			//cout the processing query index
-			cout << "processing the " << i << "th" << endl;
-			db_load.reset();//reset the db_load
+			query_time = 0.0;
+			all_time = 0.0;
+			max_ed = 0.0;
+			processednum = 0;
 
-			CQuery query(queryset[i].c_str(), db_load.gramGenUpper, (unsigned)gl_topk);
-			class TSINGHUA_CLIPSE_UTIL::TimeRecorder _time;
-			class TSINGHUA_CLIPSE_UTIL::TimeRecorder _time2;
-			db_load.init_threshold(query);
-			_time2.check();
-			query_time += _time2.diffTime(0, 1);
-			db_load.filter->setQueryLb(query);
-			if (query.threshold != 0) {
-				pipe_knn(&query);
-			}
-			_time.check();
-			all_time += _time.diffTime(0, 1);
-			processednum += db_load.processed;
-			max_ed += db_load.m_queue.top().m_dist;
-
-			fdetail << "Query for: " << queryset[i] << endl;
-			if (output) {
-				fprintf(stdout, "Finish the query for [%s]:\n", queryset[i].c_str());
-				while (!db_load.m_queue.empty()) {
-					const queue_entry &entry = db_load.m_queue.top();
-					fprintf(stdout, "%d: [%s]\t%d\n", entry.m_sid, dataset[entry.m_sid].c_str(), entry.m_dist);
-					fdetail << dataset[entry.m_sid].c_str() << " " << entry.m_dist << endl;
-					db_load.m_queue.pop();
+			for (unsigned i = 0; i < queryset.size(); i++) {//get each query
+				if (queryset[i].size() < db_load.gramGenUpper_len) {
+					fprintf(stdout, "We support queries with length larger than %d\n", db_load.gramGenUpper_len);
+					fprintf(stdout, "Too small query size for [%s]\n", queryset[i].c_str());
+					continue;
 				}
-				fprintf(stdout, "**********************************************\n");
+				//cout the processing query index
+				cout << "processing the " << i << "th" << endl;
+				db_load.reset();//reset the db_load
+
+				CQuery query(queryset[i].c_str(), db_load.gramGenUpper, (unsigned)gl_topk);
+				class TSINGHUA_CLIPSE_UTIL::TimeRecorder _time;
+				class TSINGHUA_CLIPSE_UTIL::TimeRecorder _time2;
+				db_load.init_threshold(query);
+				_time2.check();
+				query_time += _time2.diffTime(0, 1);
+				db_load.filter->setQueryLb(query);
+				if (query.threshold != 0) {
+					pipe_knn(&query);
+				}
+				_time.check();
+				all_time += _time.diffTime(0, 1);
+				processednum += db_load.processed;
+				max_ed += db_load.m_queue.top().m_dist;
+
+				fdetail << "Query for: " << queryset[i] << endl;
+				if (output) {
+					fprintf(stdout, "Finish the query for [%s]:\n", queryset[i].c_str());
+					while (!db_load.m_queue.empty()) {
+						const queue_entry &entry = db_load.m_queue.top();
+						fprintf(stdout, "%d: [%s]\t%d\n", entry.m_sid, dataset[entry.m_sid].c_str(), entry.m_dist);
+						fdetail << dataset[entry.m_sid].c_str() << " " << entry.m_dist << endl;
+						db_load.m_queue.pop();
+					}
+					fprintf(stdout, "**********************************************\n");
+				}
 			}
+			fdetail.close();
+
+			//output
+			fout << gl_topk << "  " << max_ed / queryset.size() << "  " << processednum / queryset.size() << "  "
+				<< index_time << "  " << query_time / queryset.size() << "  " << all_time / queryset.size() << endl;
+
+			//judge whether have a complete run over topk[]
+			if (!loop) {
+				query_average.push_back(query_time);
+				all_average.push_back(all_time);
+			}
+			else{
+				query_average[j] += query_time;
+				all_average[j] += all_time;
+			}
+
+			cout << "Finish all the query for topK: " << gl_topk << endl;
 		}
-		fdetail.close();
-
-		//output
-		fout << gl_topk << "  " << max_ed / queryset.size() << "  " << processednum / queryset.size() << "  "
-			<< index_time << "  " << query_time / queryset.size() << "  " << all_time / queryset.size() << endl;
-
-		cout << "Finish all the query for topK: " << gl_topk << endl;
 	}
+
+	fout << "Here is the average time cost for this queryset over the dataset of this program" << endl;
+	fout << "Time here represent the average query time and the average all time respectively for each topk" << endl;
+	
+	for (unsigned i = 0; i < 5; i++)
+		fout << tk[i] << "  " << query_average[i] / (5 * queryset.size()) << "  " << all_average[i] / (5 * queryset.size()) << endl;
+
 	fout.close();
 	return 0;
 }
