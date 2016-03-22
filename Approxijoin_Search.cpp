@@ -38,6 +38,9 @@ unsigned gl_maxLen = 0;
 double index_time = 0.0;
 double query_time = 0.0;
 double all_time = 0.0;
+
+double query_all = 0.0;
+double all_all = 0.0;
 //double max_ed = 0.0;
 long processednum = 0;
 
@@ -301,6 +304,8 @@ int main(int argc, const char* argv[])
 //	for (int j = 0; j < tk.size(); j++) {
 //		gl_topk = tk[j];
 
+	for (unsigned j = 0; j < 5; j++) {
+
 		ofstream fdetail((stemp + "_approxijoin_result").c_str());
 
 		query_time = 0.0;
@@ -346,7 +351,7 @@ int main(int argc, const char* argv[])
 					const queue_entry &entry = db_load.m_queue.top();
 					fprintf(stdout, "%d: [%s]\t%d\n", entry.m_sid, dataset[entry.m_sid].c_str(), entry.m_dist);
 					fdetail << queryset[i].c_str() << " " << dataset[entry.m_sid].c_str() << " " << entry.m_dist << endl;
-//					fdetail << dataset[entry.m_sid].c_str() << " " << entry.m_dist << endl;
+					//					fdetail << dataset[entry.m_sid].c_str() << " " << entry.m_dist << endl;
 					db_load.m_queue.pop();
 				}
 				fprintf(stdout, "**********************************************\n");
@@ -356,9 +361,17 @@ int main(int argc, const char* argv[])
 
 		//output
 		fout << processednum / queryset.size() << "  " << index_time << "  " << query_time << "  " << all_time << endl;
+		query_all += query_time;
+		all_all += all_time;
 
 		cout << "Finish the string approximate join with ed: " << ed << endl;
-//	}
+		//	}
+	}
+
+	fout << "Here is the average time cost for this dataset of this program" << endl;
+	fout << "Time here represent the average query time and the average all time" << endl;
+	fout << query_all / 5 << "  " << all_all / 5 << endl;
+
 	fout.close();
 	return 0;
 }
