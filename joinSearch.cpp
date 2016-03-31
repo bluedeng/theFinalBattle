@@ -313,7 +313,7 @@ int main(int argc, const char* argv[])
 //	for (int j = 0; j < tk.size(); j++) {
 //		gl_topk = tk[j];
 
-	for (unsigned j = 0; j < 5; j++) {
+	for (unsigned j = 0; j < 3; j++) {
 		ofstream fdetail((stemp + "_join_result").c_str());
 
 		query_time = 0.0;
@@ -378,7 +378,7 @@ int main(int argc, const char* argv[])
 
 	fout << "Here is the average time cost for this dataset of this program" << endl;
 	fout << "Time here represent the average query time and the average all time" << endl;
-	fout << query_all / 5 << "  " << all_all / 5 << endl;
+	fout << query_all / 3 << "  " << all_all / 3 << endl;
 
 	fout.close();
 	return 0;
