@@ -33,3 +33,6 @@ build for the Final Battle
 						Approxijoin_Search.cpp
 	and the modified version of:
 						Makefile
+						
+2016-03-31:
+	Update the stable version of codes

@@ -271,7 +271,7 @@ int main(int argc, const char* argv[])
 	int a[] = { 5, 10, 20, 30, 40 };
 	vector<int> tk(a, a + 5);
 
-	for (unsigned loop = 0; loop < 5; loop++) {
+	for (unsigned loop = 0; loop < 3; loop++) {
 
 		for (int j = 0; j < tk.size(); j++) {
 			gl_topk = tk[j];
@@ -344,7 +344,7 @@ int main(int argc, const char* argv[])
 	fout << "Time here represent the average query time and the average all time respectively for each topk" << endl;
 	
 	for (unsigned i = 0; i < 5; i++)
-		fout << tk[i] << "  " << query_average[i] / (5 * queryset.size()) << "  " << all_average[i] / (5 * queryset.size()) << endl;
+		fout << tk[i] << "  " << query_average[i] / (3 * queryset.size()) << "  " << all_average[i] / (3 * queryset.size()) << endl;
 
 	fout.close();
 	return 0;
